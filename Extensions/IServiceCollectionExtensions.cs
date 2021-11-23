@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Kryxivia.Domain.Extensions
 {
-    public static class IServiceCollectionExtension
+    public static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddKryxSharedServices(this IServiceCollection services)
         {
