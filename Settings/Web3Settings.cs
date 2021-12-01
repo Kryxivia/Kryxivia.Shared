@@ -10,34 +10,41 @@ using System.Threading.Tasks;
 
 namespace Kryxivia.Shared.Settings
 {
+    public class Web3NetworkSettings
+    {
+        public string PrivateKey { get; set; }
+        public string NodeUrl { get; set; }
+
+        public string NftContractAddr { get; set; }
+        public long NftContractStartBlock { get; set; }
+    }
+
     public class Web3Settings
     {
-        public int ChainId { get; set; }
-        public string NodeUrl { get; set; }
-        public string PrivateKey { get; set; }
-        public string NftContractAddr { get; set; }
+        public Web3NetworkSettings Testnet { get; set; }
+        public Web3NetworkSettings Mainnet { get; set; }
 
-        public long NftContractDeployedBlock { get; set; }
+        public Account TestnetAccount => new Account(Testnet?.PrivateKey, new BigInteger(97));
+        public Account MainnetAccount => new Account(Mainnet?.PrivateKey, new BigInteger(56));
 
-        public Web3Settings() { }
-
-        public Web3Settings(int chainId, string nodeUrl, string privateKey, string nftContractAddr)
-        {
-            ChainId = chainId;
-            NodeUrl = nodeUrl;
-            PrivateKey = privateKey;
-            NftContractAddr = nftContractAddr;
-        }
-
-
-        public BigInteger ChainIdAsBigInt => new BigInteger(ChainId);
-        public Account Account => new Account(PrivateKey, ChainIdAsBigInt);
-        public Web3 Web3(bool withSigner = false)
+        public Web3 TestnetWeb3(bool withSigner = false)
         {
             Web3 web3;
 
-            if (!withSigner) web3 = new Web3(NodeUrl);
-            else web3 = new Web3(Account, NodeUrl);
+            if (!withSigner) web3 = new Web3(Testnet?.NodeUrl);
+            else web3 = new Web3(TestnetAccount, Testnet?.NodeUrl);
+
+            if (!EnvironmentUtils.IsEip1559TxnSupported()) web3.TransactionManager.UseLegacyAsDefault = true;
+
+            return web3;
+        }
+
+        public Web3 MainnetWeb3(bool withSigner = false)
+        {
+            Web3 web3;
+
+            if (!withSigner) web3 = new Web3(Mainnet?.NodeUrl);
+            else web3 = new Web3(MainnetAccount, Mainnet?.NodeUrl);
 
             if (!EnvironmentUtils.IsEip1559TxnSupported()) web3.TransactionManager.UseLegacyAsDefault = true;
 
