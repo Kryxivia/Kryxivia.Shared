@@ -24,13 +24,17 @@ namespace Kryxivia.Shared.Settings
         public Web3NetworkSettings Testnet { get; set; }
         public Web3NetworkSettings Mainnet { get; set; }
 
-        public Account TestnetAccount => new Account(Testnet?.PrivateKey, new BigInteger(97));
-        public Account MainnetAccount => new Account(Mainnet?.PrivateKey, new BigInteger(56));
+        public string TargetNetwork { get; set; }
+
+        public Account TestnetAccount => Testnet != null && !string.IsNullOrEmpty(Testnet?.NftContractAddr) ? new Account(Testnet?.PrivateKey, new BigInteger(97)) : null;
+        public Account MainnetAccount => Mainnet != null && !string.IsNullOrEmpty(Mainnet?.NftContractAddr) ? new Account(Mainnet?.PrivateKey, new BigInteger(56)) : null; 
 
         public Web3 TestnetWeb3(bool withSigner = false)
         {
-            Web3 web3;
+            if (Testnet == null || string.IsNullOrEmpty(Testnet?.NftContractAddr)) return null;
 
+            Web3 web3;
+ 
             if (!withSigner) web3 = new Web3(Testnet?.NodeUrl);
             else web3 = new Web3(TestnetAccount, Testnet?.NodeUrl);
 
@@ -41,6 +45,8 @@ namespace Kryxivia.Shared.Settings
 
         public Web3 MainnetWeb3(bool withSigner = false)
         {
+            if (Mainnet == null || string.IsNullOrEmpty(Mainnet?.NftContractAddr)) return null;
+
             Web3 web3;
 
             if (!withSigner) web3 = new Web3(Mainnet?.NodeUrl);
@@ -50,5 +56,8 @@ namespace Kryxivia.Shared.Settings
 
             return web3;
         }
+
+        public bool IsTargetTestnet => TargetNetwork == "Testnet";
+        public bool IsTargetMainnet => TargetNetwork == "Mainnet";
     }
 }
