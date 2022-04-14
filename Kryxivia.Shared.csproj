@@ -6,7 +6,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/Kryxivia/Kryxivia.Shared</RepositoryUrl>
     <PackageProjectUrl>https://kryxivia.io</PackageProjectUrl>
-    <Version>1.0.9</Version>
+    <Version>1.1.1</Version>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageIconUrl>https://i.imgur.com/HomsAI5.jpg</PackageIconUrl>
     <Copyright>Kryxivia © 2021</Copyright>
@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.21" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.21" />
     <PackageReference Include="Nethereum.Web3" Version="4.1.1" />
+    <PackageReference Include="System.Text.Json" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
