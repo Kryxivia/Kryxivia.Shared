@@ -8,5 +8,6 @@ namespace Kryxivia.Shared.Claims
     {
         public const string PublicKey = "publickey";
         public const string Signature = "signature";
+        public const string Identifier = "identifier";
     }
 }

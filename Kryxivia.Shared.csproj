@@ -6,7 +6,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/Kryxivia/Kryxivia.Shared</RepositoryUrl>
     <PackageProjectUrl>https://kryxivia.io</PackageProjectUrl>
-    <Version>1.1.1</Version>
+    <Version>1.1.4</Version>
     <PackageIcon>icon.jpg</PackageIcon>
     <PackageIconUrl>https://i.imgur.com/HomsAI5.jpg</PackageIconUrl>
     <Copyright>Kryxivia © 2021</Copyright>
