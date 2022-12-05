@@ -32,8 +32,8 @@ namespace Kryxivia.Shared.Settings
 
         public string TargetNetwork { get; set; }
 
-        public Account TestnetAccount => Testnet != null && !string.IsNullOrEmpty(Testnet?.PrivateKey) ? new Account(Testnet?.PrivateKey, new BigInteger(97)) : null;
-        public Account MainnetAccount => Mainnet != null && !string.IsNullOrEmpty(Mainnet?.PrivateKey)  ? new Account(Mainnet?.PrivateKey, new BigInteger(56)) : null; 
+        public Account TestnetAccount => Testnet != null && !string.IsNullOrEmpty(Testnet?.PrivateKey) ? new Account(Testnet?.PrivateKey, new BigInteger(11155111)) : null;
+        public Account MainnetAccount => Mainnet != null && !string.IsNullOrEmpty(Mainnet?.PrivateKey)  ? new Account(Mainnet?.PrivateKey, new BigInteger(1)) : null; 
 
         public Web3 TestnetWeb3(bool withSigner = false)
         {
