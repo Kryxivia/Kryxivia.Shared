@@ -25,10 +25,24 @@ namespace Kryxivia.Shared.Types
         [JsonPropertyName("youtube_url")]
         public string YoutubeUrl { get; set; }
 
-        public List<OpenSeaAttribute> Attributes { get; set; } = new List<OpenSeaAttribute>();
+        public List<IAttribute> Attributes { get; set; } = new List<IAttribute>();
     }
 
-    public class OpenSeaAttribute
+    public interface IAttribute
+    {
+        string TraitType { get; set; }
+        object Value { get; set; }
+    }
+
+    public class SimpleOpenSeaAttribute : IAttribute
+    {
+        [JsonProperty("trait_type")]
+        [JsonPropertyName("trait_type")]
+        public string TraitType { get; set; }
+        public object Value { get; set; }
+    }
+
+    public class OpenSeaAttribute : IAttribute
     {
         [JsonProperty("display_type")]
         [JsonPropertyName("display_type")]
@@ -38,7 +52,7 @@ namespace Kryxivia.Shared.Types
         [JsonProperty("trait_type")]
         [JsonPropertyName("trait_type")]
         public string TraitType { get; set; }
-
         public object Value { get; set; }
     }
+
 }
