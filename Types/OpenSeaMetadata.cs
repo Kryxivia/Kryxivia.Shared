@@ -25,26 +25,12 @@ namespace Kryxivia.Shared.Types
         [JsonPropertyName("youtube_url")]
         public string YoutubeUrl { get; set; }
 
-        public List<IAttribute> Attributes { get; set; } = new List<IAttribute>();
+        public List<OpenSeaAttribute> Attributes { get; set; } = new List<OpenSeaAttribute>();
     }
 
-    public interface IAttribute
+    public class OpenSeaAttribute
     {
-        string TraitType { get; set; }
-        object Value { get; set; }
-    }
-
-    public class SimpleOpenSeaAttribute : IAttribute
-    {
-        [JsonProperty("trait_type")]
-        [JsonPropertyName("trait_type")]
-        public string TraitType { get; set; }
-        public object Value { get; set; }
-    }
-
-    public class OpenSeaAttribute : IAttribute
-    {
-        [JsonProperty("display_type")]
+        [JsonProperty("display_type", NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("display_type")]
         [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
         public DisplayTypeEnum DisplayType { get; set; }
