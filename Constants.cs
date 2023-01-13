@@ -8,6 +8,7 @@ namespace Kryxivia.Shared
     public static class Constants
     {
         public const string IPFS_GATEWAY_PREFIX = "https://ipfs.io";
+        public const string KRYXIVIA_IPFS_GATEWAY_PREFIX = "https://kryxivia.mypinata.cloud";
 
         public const string ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 

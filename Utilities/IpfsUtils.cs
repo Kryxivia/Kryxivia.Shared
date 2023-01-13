@@ -22,6 +22,17 @@ namespace Kryxivia.Shared.Utilities
             return $"{Constants.IPFS_GATEWAY_PREFIX}/ipfs/{ipfsHash}";
         }
 
+        public static string GetKryxiviaIpfsGatewayLink(string ipfsUri)
+        {
+            var ipfsUriSplit = ipfsUri.Split(new string[1] { "ipfs://" }, StringSplitOptions.None);
+            if (ipfsUriSplit == null || ipfsUriSplit.Length < 2) return null;
+
+            var ipfsHash = ipfsUriSplit[1];
+            if (string.IsNullOrWhiteSpace(ipfsHash)) return null;
+
+            return $"{Constants.KRYXIVIA_IPFS_GATEWAY_PREFIX}/ipfs/{ipfsHash}";
+        }
+
         public static async Task<string> GetIpfsHash(string json)
         {
             var options = new AddFileOptions() { OnlyHash = true };
