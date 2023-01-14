@@ -33,7 +33,7 @@ namespace Kryxivia.Shared.Types
         [JsonProperty("display_type", NullValueHandling = NullValueHandling.Ignore)]
         [JsonPropertyName("display_type")]
         [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
-        public DisplayTypeEnum DisplayType { get; set; }
+        public DisplayTypeEnum? DisplayType { get; set; } = null;
 
         [JsonProperty("trait_type")]
         [JsonPropertyName("trait_type")]
