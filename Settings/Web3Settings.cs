@@ -1,5 +1,4 @@
 ﻿using Kryxivia.Shared.Utilities;
-using Nethereum.Signer;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using System;
@@ -12,7 +11,6 @@ namespace Kryxivia.Shared.Settings
 {
     public class Web3NetworkSettings
     {
-        public string PrivateKey { get; set; }
         public string NodeUrl { get; set; }
 
         public string NftContractAddr { get; set; }
@@ -32,31 +30,40 @@ namespace Kryxivia.Shared.Settings
 
         public string TargetNetwork { get; set; }
 
-        public Account TestnetAccount => Testnet != null && !string.IsNullOrEmpty(Testnet?.PrivateKey) ? new Account(Testnet?.PrivateKey, new BigInteger(80001)) : null;
-        public Account MainnetAccount => Mainnet != null && !string.IsNullOrEmpty(Mainnet?.PrivateKey)  ? new Account(Mainnet?.PrivateKey, new BigInteger(137)) : null; 
+        public Account TestnetAccount(string privateKey)
+        {
+            if (string.IsNullOrWhiteSpace(privateKey)) return null;
+            return new Account(privateKey, new BigInteger(80001));
+        }
 
-        public Web3 TestnetWeb3(bool withSigner = false)
+        public Account MainnetAccount(string privateKey)
+        {
+            if (string.IsNullOrWhiteSpace(privateKey)) return null;
+            return new Account(privateKey, new BigInteger(137));
+        }
+
+        public Web3 TestnetWeb3(string privateKey = null)
         {
             if (Testnet == null || string.IsNullOrEmpty(Testnet?.NftContractAddr)) return null;
 
             Web3 web3;
  
-            if (!withSigner) web3 = new Web3(Testnet?.NodeUrl);
-            else web3 = new Web3(TestnetAccount, Testnet?.NodeUrl);
+            if (privateKey == null) web3 = new Web3(Testnet?.NodeUrl);
+            else web3 = new Web3(TestnetAccount(privateKey), Testnet?.NodeUrl);
 
             if (!EnvironmentUtils.IsEip1559TxnSupported()) web3.TransactionManager.UseLegacyAsDefault = true;
 
             return web3;
         }
 
-        public Web3 MainnetWeb3(bool withSigner = false)
+        public Web3 MainnetWeb3(string privateKey = null)
         {
             if (Mainnet == null || string.IsNullOrEmpty(Mainnet?.NftContractAddr)) return null;
 
             Web3 web3;
 
-            if (!withSigner) web3 = new Web3(Mainnet?.NodeUrl);
-            else web3 = new Web3(MainnetAccount, Mainnet?.NodeUrl);
+            if (privateKey == null) web3 = new Web3(Mainnet?.NodeUrl);
+            else web3 = new Web3(MainnetAccount(privateKey), Mainnet?.NodeUrl);
 
             if (!EnvironmentUtils.IsEip1559TxnSupported()) web3.TransactionManager.UseLegacyAsDefault = true;
 
